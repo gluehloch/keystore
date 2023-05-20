@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.awtools</groupId>
+        <artifactId>master-pom</artifactId>
+        <version>13-java16</version>
+    </parent>
+
+    <groupId>de.awtools</groupId>
+    <artifactId>keystore</artifactId>
+    <version>1.0</version>
+    <name>Some methods to access the KeyStore and encrypt, decrypt data.</name>
+    <packaging>jar</packaging>
+
+    <url>https://github.com/gluehloch/keystore</url>
+    <inceptionYear>2023</inceptionYear>
+    
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Change Notes</title>
+        <author email="andre.winkler@web.de">Andre Winkler</author>
+    </properties>
+    <body>
+        <!-- Under construction -->
+
+        <!-- Released -->
+
+        <release version="keystore" date="2023-05-20" description="init">
+            <action dev="andrewinkler" type="add" date="2023-05-20">
+                Start.
+            </action>
+        </release>
+    </body>
+</document>
