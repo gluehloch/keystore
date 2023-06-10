@@ -18,17 +18,13 @@ import java.security.cert.Certificate;
  */
 public class KeyStoreService {
 
-    private Resource keyStoreResource;
-
     private String keyStorePassword;
 
     private String keyStoreCertificate;
 
     private String keyStoreAlias;
 
-    Resource getKeyStoreResource() {
-        return keyStoreResource;
-    }
+    // private Resource keyStoreResource;
 
     private KeyStore ks;
     private Key key;
@@ -41,12 +37,16 @@ public class KeyStoreService {
         return ks;
     }
 
-    public void init() throws Exception {
-        ks = KeyStore.getInstance(KeyStore.getDefaultType());
-        ks.load(keyStoreResource.getInputStream(), keyStorePassword.toCharArray());
+//    public void init() throws Exception {
+//        ks = KeyStore.getInstance(KeyStore.getDefaultType());
+//        ks.load(keyStoreResource.getInputStream(), keyStorePassword.toCharArray());
+//
+//        // TODO Die Klasse kann nur den 'awtest' Schlüssel verwenden.
+//        key = ks.getKey("awtest", keyStorePassword.toCharArray());
+//    }
 
-        // TODO Die Klasse kann nur den 'awtest' Schlüssel verwenden.
-        key = ks.getKey("awtest", keyStorePassword.toCharArray());
+    public KeyStoreService(KeyStore keyStore) {
+        this.ks = keyStore;
     }
 
     /**
