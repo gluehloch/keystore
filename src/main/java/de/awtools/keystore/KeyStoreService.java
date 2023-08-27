@@ -18,11 +18,9 @@ import java.security.cert.Certificate;
  */
 public class KeyStoreService {
 
-    private String keyStorePassword;
+    private final String keyStorePassword;
 
-    private String keyStoreCertificate;
-
-    private String keyStoreAlias;
+    private final String keyStoreAlias;
 
     // private Resource keyStoreResource;
 
@@ -45,8 +43,10 @@ public class KeyStoreService {
 //        key = ks.getKey("awtest", keyStorePassword.toCharArray());
 //    }
 
-    public KeyStoreService(KeyStore keyStore) {
+    public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias) {
         this.ks = keyStore;
+        this.keyStorePassword = keyStorePassword;
+        this.keyStoreAlias = keyStoreAlias;
     }
 
     /**
@@ -60,7 +60,7 @@ public class KeyStoreService {
                 //  
                 // TODO Unterschied zwischen ks.getCertificate(...) and ks.getKey(...) ???
                 //
-                Certificate cert = ks.getCertificate(keyStoreCertificate);
+                Certificate cert = ks.getCertificate(keyStoreAlias);
                 PublicKey publicKey = cert.getPublicKey();
                 return Optional.of(publicKey);
             }
