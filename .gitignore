@@ -2,6 +2,11 @@
 /target
 *.class
 
+# Ignore Eclipse
+/.classpath
+/.project
+/.settings
+
 # Log file
 *.log
 
