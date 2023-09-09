@@ -1,5 +1,6 @@
 package de.awtools.keystore;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.security.Key;
 import java.security.KeyStore;
@@ -44,6 +45,9 @@ public class KeyStoreService {
 //    }
 
     public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias) {
+        Objects.requireNonNull(keyStore);
+        Objects.requireNonNull(keyStorePassword);
+        Objects.requireNonNull(keyStoreAlias);
         this.ks = keyStore;
         this.keyStorePassword = keyStorePassword;
         this.keyStoreAlias = keyStoreAlias;
@@ -84,7 +88,7 @@ public class KeyStoreService {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(key);
+        return Optional.of(key);
     }
 
 }
