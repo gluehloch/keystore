@@ -44,13 +44,17 @@ public class KeyStoreService {
 //        key = ks.getKey("awtest", keyStorePassword.toCharArray());
 //    }
 
-    public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias) {
+    public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias)
+            throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException
+    {
         Objects.requireNonNull(keyStore);
         Objects.requireNonNull(keyStorePassword);
         Objects.requireNonNull(keyStoreAlias);
         this.ks = keyStore;
         this.keyStorePassword = keyStorePassword;
         this.keyStoreAlias = keyStoreAlias;
+        this.key = ks.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+        Objects.requireNonNull(this.key);
     }
 
     /**
