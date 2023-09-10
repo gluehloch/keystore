@@ -2,6 +2,7 @@ package de.awtools.keystore;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 
@@ -36,6 +37,13 @@ class CryptoniumTest {
         
         assertThat(x).isEqualTo(y);
         assertThat(new String(decrypt2)).isEqualTo("Das ist ein Test");
+    }
+
+    @Test
+    String getPublicKeyString() throws IOException {
+        InputStream stream = CryptoniumTest.class.getResourceAsStream("awtest.cer");
+        byte[] fileBytes = stream.readAllBytes();
+        return new String(fileBytes, "UTF-8");
     }
 
 }

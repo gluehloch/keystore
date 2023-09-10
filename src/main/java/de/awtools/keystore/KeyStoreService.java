@@ -20,10 +20,8 @@ import java.security.cert.Certificate;
 public class KeyStoreService {
 
     private final String keyStorePassword;
-
     private final String keyStoreAlias;
-
-    private final KeyStore ks;
+    private final KeyStore keyStore;
     private final Key key;
     
     public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias)
@@ -32,10 +30,10 @@ public class KeyStoreService {
         Objects.requireNonNull(keyStore);
         Objects.requireNonNull(keyStorePassword);
         Objects.requireNonNull(keyStoreAlias);
-        this.ks = keyStore;
+        this.keyStore = keyStore;
         this.keyStorePassword = keyStorePassword;
         this.keyStoreAlias = keyStoreAlias;
-        this.key = ks.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+        this.key = keyStore.getKey(keyStoreAlias, keyStorePassword.toCharArray());
         Objects.requireNonNull(this.key);
     }
 
@@ -48,7 +46,7 @@ public class KeyStoreService {
         try {
             if (key instanceof PrivateKey) {
                 // TODO Unterschied zwischen ks.getCertificate(...) and ks.getKey(...) ???
-                Certificate cert = ks.getCertificate(keyStoreAlias);
+                Certificate cert = keyStore.getCertificate(keyStoreAlias);
                 PublicKey publicKey = cert.getPublicKey();
                 return Optional.of(publicKey);
             }
@@ -66,20 +64,13 @@ public class KeyStoreService {
     public Optional<Key> privateKey() {
         Key key;
         try {
-            key = ks.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+            key = keyStore.getKey(keyStoreAlias, keyStorePassword.toCharArray());
         } catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException ex) {
             return Optional.empty();
         }
 
         return Optional.of(key);
     }
-
-    Key getKey() {
-        return key;
-    }
     
-    KeyStore getKeyStore() {
-        return ks;
-    }
 
 }
