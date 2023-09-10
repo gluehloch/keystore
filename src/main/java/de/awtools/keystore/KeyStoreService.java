@@ -23,27 +23,9 @@ public class KeyStoreService {
 
     private final String keyStoreAlias;
 
-    // private Resource keyStoreResource;
-
-    private KeyStore ks;
-    private Key key;
+    private final KeyStore ks;
+    private final Key key;
     
-    Key getKey() {
-        return key;
-    }
-    
-    KeyStore getKeyStore() {
-        return ks;
-    }
-
-//    public void init() throws Exception {
-//        ks = KeyStore.getInstance(KeyStore.getDefaultType());
-//        ks.load(keyStoreResource.getInputStream(), keyStorePassword.toCharArray());
-//
-//        // TODO Die Klasse kann nur den 'awtest' Schlüssel verwenden.
-//        key = ks.getKey("awtest", keyStorePassword.toCharArray());
-//    }
-
     public KeyStoreService(KeyStore keyStore, String keyStorePassword, String keyStoreAlias)
             throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException
     {
@@ -65,14 +47,11 @@ public class KeyStoreService {
     public Optional<PublicKey> publicKey() {
         try {
             if (key instanceof PrivateKey) {
-                //  
                 // TODO Unterschied zwischen ks.getCertificate(...) and ks.getKey(...) ???
-                //
                 Certificate cert = ks.getCertificate(keyStoreAlias);
                 PublicKey publicKey = cert.getPublicKey();
                 return Optional.of(publicKey);
             }
-
             return Optional.empty();
         } catch (KeyStoreException ex) {
             return Optional.empty();
@@ -93,6 +72,14 @@ public class KeyStoreService {
         }
 
         return Optional.of(key);
+    }
+
+    Key getKey() {
+        return key;
+    }
+    
+    KeyStore getKeyStore() {
+        return ks;
     }
 
 }
