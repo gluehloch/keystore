@@ -4,7 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
+import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +22,11 @@ class CryptoniumTest {
         KeyStoreService keyStoreService = new KeyStoreService(ks, "awtest", "awtest");
         var c = new Cryptonium(keyStoreService);
 
-        byte[] encrypt1 = c.encrypt("Das ist ein Test".getBytes("UTF-8"));
-        System.out.println(encrypt1);
+        byte[] encrypt1 = c.encrypt("Das ist ein Test".getBytes(StandardCharsets.UTF_8));
+        System.out.println(Arrays.toString(encrypt1));
 
-        byte[] encrypt2 = c.encrypt("Das ist ein Test".getBytes("UTF-8"));
-        System.out.println(encrypt2);
+        byte[] encrypt2 = c.encrypt("Das ist ein Test".getBytes(StandardCharsets.UTF_8));
+        System.out.println(Arrays.toString(encrypt2));
         
         assertThat(encrypt1).isNotEqualTo(encrypt2);
  
@@ -39,11 +42,12 @@ class CryptoniumTest {
         assertThat(new String(decrypt2)).isEqualTo("Das ist ein Test");
     }
 
-    @Test
     String getPublicKeyString() throws IOException {
-        InputStream stream = CryptoniumTest.class.getResourceAsStream("awtest.cer");
-        byte[] fileBytes = stream.readAllBytes();
-        return new String(fileBytes, "UTF-8");
+        byte[] fileBytes;
+        try (InputStream stream = CryptoniumTest.class.getResourceAsStream("awtest.cer")) {
+            fileBytes = Objects.requireNonNull(stream).readAllBytes();
+        }
+        return new String(fileBytes, StandardCharsets.UTF_8);
     }
 
 }
